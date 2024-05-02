@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers;
-use App\Models\User;
+use App\Filament\Resources\CitieResource\Pages;
+use App\Filament\Resources\CitieResource\RelationManagers;
+use App\Models\Citie;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -12,16 +12,14 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Tables\Enums\ActionsPosition;
 
-class UserResource extends Resource
+class CitieResource extends Resource
 {
-    protected static ?string $model = User::class;
+    protected static ?string $model = Citie::class;
 
-    //protected static ?string $label = 'Usuarios';
-    protected static ?string $navigationIcon = 'heroicon-o-user-group';
-    protected static ?string $navigationGroup = 'Users Management';
-    protected static ?int $navigationSort = 20;
+    protected static ?string $navigationIcon = 'heroicon-o-map-pin';
+    protected static ?string $navigationGroup = 'System Management';
+    protected static ?int $navigationSort = 32;
 
     public static function form(Form $form): Form
     {
@@ -30,26 +28,27 @@ class UserResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('email')
-                    ->email()
+                Forms\Components\TextInput::make('state_id')
+                    ->required()
+                    ->numeric(),
+                Forms\Components\TextInput::make('state_code')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\DateTimePicker::make('email_verified_at'),
-                Forms\Components\TextInput::make('password')
-                    ->hiddenOn('edit')
-                    ->password()
+                Forms\Components\TextInput::make('country_id')
+                    ->required()
+                    ->numeric(),
+                Forms\Components\TextInput::make('country_code')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('last_name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('first_name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('address')
+                Forms\Components\TextInput::make('latitude')
                     ->maxLength(255)
                     ->default(null),
-                Forms\Components\TextInput::make('company')
+                Forms\Components\TextInput::make('longitude')
+                    ->maxLength(255)
+                    ->default(null),
+                Forms\Components\Toggle::make('flag')
+                    ->required(),
+                Forms\Components\TextInput::make('wikiDataId')
                     ->maxLength(255)
                     ->default(null),
             ]);
@@ -61,11 +60,20 @@ class UserResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('email')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('email_verified_at')
-                    ->dateTime()
+                Tables\Columns\TextColumn::make('state_id')
+                    ->numeric()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('state_code')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('country_id')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('country_code')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('latitude')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('longitude')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -74,25 +82,18 @@ class UserResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('last_name')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('first_name')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('address')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('company')
+                Tables\Columns\IconColumn::make('flag')
+                    ->boolean(),
+                Tables\Columns\TextColumn::make('wikiDataId')
                     ->searchable(),
             ])
+            ->striped()
             ->filters([
                 //
             ])
-           /* ->headerActions([
-                // ...
-
-            ])*/
             ->actions([
                 Tables\Actions\EditAction::make(),
-            ], position: ActionsPosition::BeforeColumns)
+            ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
@@ -110,9 +111,9 @@ class UserResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListUsers::route('/'),
-            'create' => Pages\CreateUser::route('/create'),
-            'edit' => Pages\EditUser::route('/{record}/edit'),
+            'index' => Pages\ListCitie::route('/'),
+            'create' => Pages\CreateCitie::route('/create'),
+            'edit' => Pages\EditCitie::route('/{record}/edit'),
         ];
     }
 }
