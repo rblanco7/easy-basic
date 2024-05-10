@@ -9,6 +9,7 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateColorhair extends CreateRecord
 {
     protected static string $resource = ColorhairResource::class;
+    protected static bool $canCreateAnother = false;
 
     protected function getRedirectUrl(): string
     {

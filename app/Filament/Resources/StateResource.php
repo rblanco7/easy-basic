@@ -59,12 +59,12 @@ class StateResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('country_id')
+                Tables\Columns\TextColumn::make('countries.name')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('country_code')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('fips_code')
+                /*Tables\Columns\TextColumn::make('fips_code')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('iso2')
                     ->searchable(),
@@ -81,7 +81,7 @@ class StateResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\IconColumn::make('flag')
-                    ->boolean(),
+                    ->boolean(),*/
             ])
             ->striped()
             ->filters([

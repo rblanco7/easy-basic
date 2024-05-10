@@ -91,7 +91,7 @@ class CountryResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('iso3')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('iso2')
+               /* Tables\Columns\TextColumn::make('iso2')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('phonecode')
                     ->searchable(),
@@ -104,12 +104,12 @@ class CountryResource extends Resource
                 Tables\Columns\TextColumn::make('tld')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('native')
-                    ->searchable(),
+                    ->searchable(),*/
                 Tables\Columns\TextColumn::make('region')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('subregion')
                     ->searchable(),
-                Tables\Columns\IconColumn::make('flag')
+                /*Tables\Columns\IconColumn::make('flag')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -118,7 +118,7 @@ class CountryResource extends Resource
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true),*/
             ])
             ->striped()
             ->filters([

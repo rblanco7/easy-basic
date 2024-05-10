@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\CitieResource\Pages;
 use App\Filament\Resources\CitieResource\RelationManagers;
 use App\Models\Citie;
+use App\Models\country;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -12,6 +13,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Forms\Get;
 
 class CitieResource extends Resource
 {
@@ -60,17 +63,17 @@ class CitieResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('state_id')
+                /*Tables\Columns\TextColumn::make('state_id')
                     ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('state_code')
+                    ->sortable(),*/
+                Tables\Columns\TextColumn::make('states.name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('country_id')
+                Tables\Columns\TextColumn::make('countries.name')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('country_code')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('latitude')
+                /*Tables\Columns\TextColumn::make('latitude')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('longitude')
                     ->searchable(),
@@ -85,11 +88,16 @@ class CitieResource extends Resource
                 Tables\Columns\IconColumn::make('flag')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('wikiDataId')
-                    ->searchable(),
+                    ->searchable(),*/
             ])
             ->striped()
             ->filters([
                 //
+                SelectFilter::make('country_id')
+                    //->query(fn (Builder $query): Builder => $query->where('country_id', $get('country_id_birth'))),
+                    ->options(fn (): array => country::query()->pluck('name', 'id')->all())
+
+
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

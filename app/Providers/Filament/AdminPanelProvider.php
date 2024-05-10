@@ -30,11 +30,11 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            ->login()
+            /*->login()
             ->registration()
             ->passwordReset()
             ->emailVerification()
-            ->profile()
+            ->profile()*/
             ->brandLogo(asset('images/logo-easyPro-Horizontal.png'))
             ->brandLogoHeight('4rem')
             ->favicon(asset('images/favicon.ico'))
@@ -61,7 +61,7 @@ class AdminPanelProvider extends PanelProvider
                 Widgets\AccountWidget::class,
                // Widgets\FilamentInfoWidget::class,
             ])
-            ->middleware([
+            /*->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
                 StartSession::class,
@@ -74,6 +74,6 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ]);            ;
+            ]);     */       ;
     }
 }

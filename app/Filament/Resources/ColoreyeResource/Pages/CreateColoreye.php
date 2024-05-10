@@ -9,6 +9,7 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateColoreye extends CreateRecord
 {
     protected static string $resource = ColoreyeResource::class;
+    protected static bool $canCreateAnother = false;
 
     protected function getRedirectUrl(): string
     {

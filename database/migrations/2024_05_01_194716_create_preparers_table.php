@@ -22,9 +22,13 @@ return new class extends Migration
             $table->string('street_number_mail')->nullable();
             $table->string('type_home_mail')->nullable();
             $table->string('number_home_mail')->nullable();
-            $table->integer('city_id_mail')->nullable(); // Ciudad
+            $table->foreignId('city_id_mail')->constrained(table: 'cities')->onUpdate('cascade')->onDelete('cascade')->nullable();
+            $table->foreignId('state_id_mail')->constrained(table: 'states')->onUpdate('cascade')->onDelete('cascade')->nullable();
+            $table->foreignId('country_id_mail')->constrained(table: 'countries')->onUpdate('cascade')->onDelete('cascade')->nullable();
+
+           /*$table->integer('city_id_mail')->nullable(); // Ciudad
             $table->integer('state_id_mail')->nullable();  //Estado
-            $table->integer('country_id_mail')->nullable(); //Pais
+            $table->integer('country_id_mail')->nullable(); //Pais*/
             $table->string('postal_code_mail')->nullable(); //Codigo Postal
             $table->string('zip_code_mail')->nullable();
             $table->string('province_mail')->nullable(); //Provincia
